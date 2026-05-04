@@ -15,6 +15,7 @@ export default function Home() {
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<TailorResponse | null>(null);
   const [error, setError] = useState("");
+  const [fileName, setFileName] = useState("resume");
 
   async function handleTailor(focusMode: TailorRequest["focusMode"]) {
     setStep(4);
@@ -50,20 +51,20 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-3">
           <span className="text-2xl">🎯</span>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">RoleFit AI</h1>
-            <p className="text-xs text-gray-500">Tailor your resume to any job — honestly</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">RoleFit AI</h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Tailor your resume to any job — honestly</p>
           </div>
         </div>
       </header>
 
       {/* Workflow steps indicator */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto">
           <WorkflowSteps currentStep={step} />
         </div>
@@ -79,8 +80,9 @@ export default function Home() {
 
         {step === 1 && (
           <UploadStep
-            onNext={(text) => {
+            onNext={(text, name) => {
               setResumeText(text);
+              setFileName(name);
               setStep(2);
             }}
           />
@@ -106,7 +108,7 @@ export default function Home() {
         {step === 4 && <ProcessingStep />}
 
         {step === 5 && result && (
-          <ResultsStep result={result} onStartOver={handleStartOver} />
+          <ResultsStep result={result} onStartOver={handleStartOver} fileName={fileName} />
         )}
       </main>
     </div>

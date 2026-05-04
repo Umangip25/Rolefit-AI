@@ -31,10 +31,26 @@ export async function extractTextFromFile(file: File): Promise<string> {
       fullText += strings.join(" ") + "\n";
     }
 
-    return fullText;
+    const cleaned = fullText
+      .split("\n")
+      .map((line) => {
+        const trimmed = line.trim();
+        // Match lines like "U M A N G I" or "U M A N G I  P R A J A P A T I"
+        if (/^[A-Z]( [A-Z])+$/.test(trimmed)) {
+          // Remove single spaces between letters but keep double spaces as word separators
+          return trimmed
+            .split("  ")
+            .map((word) => word.replace(/ /g, ""))
+            .join(" ");
+        }
+        return line;
+      })
+      .join("\n");
+
+    return cleaned;
   }
 
   throw new Error(
-    "Unsupported file type. Please upload a .txt, .docx, or .pdf file."
+    "Unsupported file type. Please upload a .txt, .docx, or .pdf file.",
   );
 }

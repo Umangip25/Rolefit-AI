@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { extractTextFromFile } from "@/lib/fileParser";
 
 type Props = {
-  onNext: (resumeText: string) => void;
+  onNext: (resumeText: string, fileName: string) => void;
 };
 
 export default function UploadStep({ onNext }: Props) {
@@ -46,13 +46,13 @@ export default function UploadStep({ onNext }: Props) {
       setError("Please upload a file or paste your resume text.");
       return;
     }
-    onNext(resumeText);
+    onNext(resumeText, fileName);
   }
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Upload Your Resume</h2>
-      <p className="text-gray-500 mb-6">Upload a .txt or .docx file, or paste your resume directly.</p>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Upload Your Resume</h2>
+      <p className="text-gray-500 dark:text-gray-400 mb-6">Upload a .txt or .docx file, or paste your resume directly.</p>
 
       {/* Drop zone */}
       <div
@@ -61,8 +61,8 @@ export default function UploadStep({ onNext }: Props) {
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"}
-        `}
+          ${isDragging ? "border-blue-500 bg-blue-50 dark:bg-blue-950" : "border-gray-300 dark:border-gray-600 hover:border-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800"}
+          `}
       >
         <input
           ref={fileInputRef}
@@ -78,17 +78,17 @@ export default function UploadStep({ onNext }: Props) {
         ) : (
           <>
             <p className="text-4xl mb-3">📄</p>
-            <p className="text-gray-600 font-medium">Drag & drop your resume here</p>
-            <p className="text-gray-400 text-sm mt-1">or click to browse — .txt, .docx, or .pdf</p>
+            <p className="text-gray-600 dark:text-gray-300 font-medium">Drag & drop your resume here</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">or click to browse — .txt, .docx, or .pdf</p>
           </>
         )}
       </div>
 
       {/* Divider */}
       <div className="flex items-center gap-3 my-5">
-        <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-gray-400 text-sm">or paste below</span>
-        <div className="flex-1 h-px bg-gray-200" />
+        <div className="flex-1 h-px bg-gray-200 dark:bg-gray-600" />
+        <span className="text-gray-400 dark:text-gray-500 text-sm">or paste below</span>
+        <div className="flex-1 h-px bg-gray-200 dark:bg-gray-600" />
       </div>
 
       {/* Paste area */}
@@ -97,7 +97,7 @@ export default function UploadStep({ onNext }: Props) {
         onChange={(e) => setResumeText(e.target.value)}
         placeholder="Paste your resume text here..."
         rows={10}
-        className="w-full border border-gray-300 rounded-xl p-4 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-xl p-4 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
       />
 
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

@@ -37,13 +37,12 @@ export default function ProcessingStep() {
     <div className="max-w-2xl mx-auto p-6 flex flex-col items-center justify-center min-h-64">
       {/* Spinner */}
       <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-8" />
-
       {/* Message */}
-      <p className="text-lg font-semibold text-gray-700 text-center">
+      <p className="text-lg font-semibold text-gray-700 dark:text-gray-200 text-center">
         {messages[messageIndex]}{dots}
       </p>
 
-      <p className="text-sm text-gray-400 mt-3 text-center">
+      <p className="text-sm text-gray-400 dark:text-gray-500 mt-3 text-center">
         This usually takes 10–20 seconds
       </p>
 
@@ -52,9 +51,8 @@ export default function ProcessingStep() {
         {messages.map((_, i) => (
           <div
             key={i}
-            className={`w-2 h-2 rounded-full transition-all duration-500 ${
-              i <= messageIndex ? "bg-blue-600" : "bg-gray-200"
-            }`}
+            className={`w-2 h-2 rounded-full transition-all duration-500 ${i <= messageIndex ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-700"
+              }`}
           />
         ))}
       </div>

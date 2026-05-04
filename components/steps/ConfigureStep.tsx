@@ -49,10 +49,10 @@ export default function ConfigureStep({ onNext, onBack }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
         Choose Your Focus Mode
       </h2>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-500 dark:text-gray-400 mb-6">
         How should the AI prioritize when rewriting your resume?
       </p>
 
@@ -62,16 +62,15 @@ export default function ConfigureStep({ onNext, onBack }: Props) {
             key={option.id}
             onClick={() => setSelected(option.id)}
             className={`cursor-pointer rounded-xl border-2 p-5 transition-all duration-200
-              ${
-                selected === option.id
-                  ? "border-blue-600 bg-blue-50 shadow-md"
-                  : "border-gray-200 hover:border-blue-300 hover:bg-gray-50"
+  ${selected === option.id
+                ? "border-blue-600 bg-blue-50 dark:bg-blue-950 shadow-md"
+                : "border-gray-200 dark:border-gray-700 hover:border-blue-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               }
             `}
           >
             <p className="text-3xl mb-2">{option.emoji}</p>
-            <p className="font-semibold text-gray-800">{option.label}</p>
-            <p className="text-sm text-gray-500 mt-1">{option.description}</p>
+            <p className="font-semibold text-gray-800 dark:text-white">{option.label}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{option.description}</p>
           </div>
         ))}
       </div>
@@ -79,7 +78,7 @@ export default function ConfigureStep({ onNext, onBack }: Props) {
       <div className="flex gap-3">
         <button
           onClick={onBack}
-          className="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-600 font-semibold py-3 rounded-xl transition-colors duration-200"
+          className="flex-1 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold py-3 rounded-xl transition-colors duration-200"
         >
           ← Back
         </button>
