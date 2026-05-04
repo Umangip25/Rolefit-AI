@@ -1,6 +1,7 @@
 "use client";
+/* eslint-disable react-hooks/set-state-in-effect */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WorkflowSteps from "../components/ui/WorkflowSteps";
 import UploadStep from "../components/steps/UploadStep";
 import JobDescStep from "../components/steps/JobDescStep";
@@ -10,13 +11,38 @@ import ResultsStep from "../components/steps/ResultsStep";
 import { TailorRequest, TailorResponse } from "@/types";
 
 export default function Home() {
+  const [hydrated, setHydrated] = useState(false);
+  const [resetKey, setResetKey] = useState(0);
   const [step, setStep] = useState(1);
   const [resumeText, setResumeText] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [fileName, setFileName] = useState("");
   const [result, setResult] = useState<TailorResponse | null>(null);
   const [error, setError] = useState("");
-  const [fileName, setFileName] = useState("resume");
 
+  useEffect(() => {
+    const savedStep = sessionStorage.getItem("step");
+    const savedResumeText = sessionStorage.getItem("resumeText");
+    const savedJobDescription = sessionStorage.getItem("jobDescription");
+    const savedFileName = sessionStorage.getItem("fileName");
+    const savedResult = sessionStorage.getItem("result");
+
+    setStep(savedStep ? Number(savedStep) : 1);
+    setResumeText(savedResumeText ?? "");
+    setJobDescription(savedJobDescription ?? "");
+    setFileName(savedFileName ?? "");
+    setResult(savedResult ? JSON.parse(savedResult) : null);
+    setHydrated(true);
+  }, []); 
+
+  useEffect(() => {
+    if (!hydrated) return;
+    sessionStorage.setItem("step", String(step));
+    sessionStorage.setItem("resumeText", resumeText);
+    sessionStorage.setItem("jobDescription", jobDescription);
+    sessionStorage.setItem("fileName", fileName);
+    if (result) sessionStorage.setItem("result", JSON.stringify(result));
+  }, [step, resumeText, jobDescription, fileName, result, hydrated]);
   async function handleTailor(focusMode: TailorRequest["focusMode"]) {
     setStep(4);
     setError("");
@@ -43,11 +69,14 @@ export default function Home() {
   }
 
   function handleStartOver() {
+    sessionStorage.clear();
     setStep(1);
     setResumeText("");
     setJobDescription("");
     setResult(null);
     setError("");
+    setFileName("");
+    setResetKey((prev) => prev + 1);
   }
 
   return (
@@ -77,9 +106,11 @@ export default function Home() {
             ⚠ {error}
           </div>
         )}
-
         {step === 1 && (
           <UploadStep
+            key={resetKey}
+            initialText={resumeText}
+            initialFileName={fileName}
             onNext={(text, name) => {
               setResumeText(text);
               setFileName(name);
@@ -87,7 +118,6 @@ export default function Home() {
             }}
           />
         )}
-
         {step === 2 && (
           <JobDescStep
             onNext={(jd) => {

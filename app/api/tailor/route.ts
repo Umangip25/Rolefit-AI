@@ -57,8 +57,8 @@ VERIFICATION STEP: Before writing the tailored resume, check — does every skil
 Respond ONLY with a valid JSON object, no markdown, no extra text:
 {
   "tailoredResume": "the full rewritten resume. Use this exact formatting:\n- Section headers in ALL CAPS followed by a newline\n- Each bullet point on its own line starting with ›\n- Double newline between sections\n- Name on the very first line\n- Job title line directly under name\n- Contact info each on its own line",
-  "matchedKeywords": ["keywords from job description that exist in the original resume"],
-  "missingKeywords": ["keywords from job description that are NOT in the original resume"],
+  "matchedKeywords": ["only technical skills, tools, frameworks, and methodologies from the job description that exist in the original resume. Examples: React, TypeScript, Jest, Agile, CI/CD"],
+  "missingKeywords": ["only technical skills, tools, frameworks, and methodologies from the job description that are NOT in the original resume. Do NOT include company perks, office policies, travel requirements, soft adjectives like 'amazing' or 'flexible', company descriptions, or job location details"],
   "changesSummary": ["specific change 1", "specific change 2"],
   "score": {
     "before": <percentage of job description keywords found in the ORIGINAL resume, integer 0-100>,

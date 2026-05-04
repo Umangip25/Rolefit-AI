@@ -5,12 +5,14 @@ import { extractTextFromFile } from "@/lib/fileParser";
 
 type Props = {
   onNext: (resumeText: string, fileName: string) => void;
+  initialText?: string;
+  initialFileName?: string;
 };
 
-export default function UploadStep({ onNext }: Props) {
-  const [resumeText, setResumeText] = useState("");
+export default function UploadStep({ onNext, initialText = "", initialFileName = "" }: Props) {
+  const [resumeText, setResumeText] = useState(initialText);
   const [isDragging, setIsDragging] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState(initialFileName);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -73,8 +75,10 @@ export default function UploadStep({ onNext }: Props) {
         />
         {loading ? (
           <p className="text-blue-500 font-medium">Reading file...</p>
-        ) : fileName ? (
+        ) : fileName && fileName !== "resume" ? (
           <p className="text-green-600 font-medium">✓ {fileName} loaded</p>
+        ) : resumeText && !fileName ? (
+          <p className="text-green-600 font-medium">✓ Resume text loaded</p>
         ) : (
           <>
             <p className="text-4xl mb-3">📄</p>
@@ -104,10 +108,16 @@ export default function UploadStep({ onNext }: Props) {
 
       <button
         onClick={handleContinue}
-        className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors duration-200"
+        disabled={!resumeText.trim()}
+        className="mt-4 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition-colors duration-200"
       >
         Continue →
       </button>
-    </div>
+      {resumeText && !fileName && (
+        <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-2">
+        Resume text restored from your previous session
+        </p>
+      )}
+    </div >
   );
 }
