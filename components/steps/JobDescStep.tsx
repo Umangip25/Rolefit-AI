@@ -5,10 +5,11 @@ import { useState } from "react";
 type Props = {
   onNext: (jobDescription: string) => void;
   onBack: () => void;
+  initialJobDesc?: string;
 };
 
-export default function JobDescStep({ onNext, onBack }: Props) {
-  const [jobDescription, setJobDescription] = useState("");
+export default function JobDescStep({ onNext, onBack, initialJobDesc = "" }: Props) {
+  const [jobDescription, setJobDescription] = useState(initialJobDesc);
   const [error, setError] = useState("");
 
   function handleContinue() {
