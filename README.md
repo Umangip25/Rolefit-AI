@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&pause=1000&color=6366F1&center=true&vCenter=true&width=700&height=60&lines=Tailor+your+resume+to+any+job+—+honestly+%F0%9F%8E%AF;No+fabrication.+No+exaggeration.+Just+truth.+%E2%9C%85;AI-powered+keyword+matching+%26+ATS+optimization+%F0%9F%A4%96;Built+with+Next.js+%2B+OpenAI+GPT-4o+%F0%9F%9A%80)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&pause=1000&color=6366F1&center=true&vCenter=true&width=700&height=60&lines=Tailor+your+resume+to+any+job+%E2%80%94+honestly+%F0%9F%8E%AF;No+fabrication.+No+exaggeration.+Just+truth.+%E2%9C%85;AI-powered+keyword+matching+%26+ATS+optimization+%F0%9F%A4%96;Built+with+Next.js+%2B+OpenAI+GPT-4o+%F0%9F%9A%80)](https://git.io/typing-svg)
 
 </div>
 
@@ -10,7 +10,7 @@
 
 ## What is RoleFit AI?
 
-RoleFit AI is a truth-first resume tailoring tool that helps job seekers align their existing resume to a specific job description without inventing or exaggerating anything.
+RoleFit AI is a truth-first resume tailoring tool that helps job seekers align their existing resume to a specific job description — without inventing or exaggerating anything.
 
 Upload your resume, paste a job description, choose a focus mode, and get a refined, ATS-aligned version in seconds.
 
@@ -18,13 +18,13 @@ Upload your resume, paste a job description, choose a focus mode, and get a refi
 
 ## ✨ Features
 
-- 📄 Upload resume as PDF, DOCX, or TXT — or paste directly
+- 📄 Upload resume as `.docx` — or paste text directly
 - 🤖 AI-powered rewriting with strict no-fabrication rules
 - 🎯 Keyword matching — highlights matched and missing skills
 - 📊 Alignment score — before vs after comparison
 - ⚖️ 4 focus modes — Balanced, ATS Optimized, Impact Focused, Concise
 - 📝 Change summary — clearly shows what was modified
-- ⬇️ Export as DOCX or TXT
+- ⬇️ Export as DOCX
 - 📋 One-click copy to clipboard
 - 🌗 Dark / Light mode (system-based)
 - 💾 Session persistence using sessionStorage
@@ -41,7 +41,7 @@ Upload your resume, paste a job description, choose a focus mode, and get a refi
 
 ## 🛠️ Tech Stack
 
-![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI%20GPT--4o-412991?style=for-the-badge&logo=openai&logoColor=white)
@@ -50,11 +50,10 @@ Upload your resume, paste a job description, choose a focus mode, and get a refi
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 14 (App Router) |
 | Language | TypeScript |
-| Styling | Tailwind CSS v4 |
+| Styling | Tailwind CSS |
 | AI | OpenAI GPT-4o via API |
-| PDF Parsing | pdfjs-dist |
 | DOCX Parsing | mammoth |
 | DOCX Export | docx + file-saver |
 | Deployment | Vercel |
@@ -78,7 +77,7 @@ resume-align/
 ├── components/
 │   ├── ui/
 │   │   ├── WorkflowSteps.tsx       # 5-step progress indicator
-│   │   └── Header.tsx
+│   │   └── Header.tsx              # Shared header with logo reset
 │   └── steps/
 │       ├── UploadStep.tsx          # Resume upload + drag & drop
 │       ├── JobDescStep.tsx         # Job description input
@@ -86,9 +85,8 @@ resume-align/
 │       ├── ProcessingStep.tsx      # Loading screen
 │       └── ResultsStep.tsx         # Results + download
 ├── lib/
-│   ├── fileParser.ts               # PDF, DOCX, TXT extraction
-│   ├── docxExport.ts               # DOCX + TXT download
-│   └── store.ts
+│   ├── docxExport.ts               # DOCX download
+│   └── store.ts                    # sessionStorage utilities
 └── types/
     └── index.ts                    # Shared TypeScript types
 ```
